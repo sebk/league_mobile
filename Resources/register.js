@@ -31,7 +31,7 @@ var email = Titanium.UI.createTextField({
     left:10,  
     width:300,  
     height:40,  
-    hintText:'email',  
+    hintText:'E-mail',  
     keyboardType:Titanium.UI.KEYBOARD_DEFAULT,  
     returnKeyType:Titanium.UI.RETURNKEY_DEFAULT,  
     borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -125,8 +125,8 @@ function sendRequest() {
 		
 		//Fehlerbehandlung
 		if (this.status == "422") {
-			Ti.API.error(response.email);
-			alert("Die E-Mail Adresse existiert bereits");
+			//Ti.API.error(response.email);
+			alert(response);
 		}
 		else {
 			var alertDialog = Ti.UI.createAlertDialog({

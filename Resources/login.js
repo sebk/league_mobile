@@ -9,7 +9,9 @@ var email = Ti.UI.createTextField({
 	hintText:"E-Mail",
 	keyboardType:Ti.UI.KEYBOARETURNKEY_DEFAULT,
 	returnKeyType:Ti.UI.RETURNKEY_DEFAULT,
-	borderStyle:Ti.UI.INPUT_BORDERSTYLE_ROUNDED
+	borderStyle:Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+	autocapitalization:Ti.UI.AUTOCAPITALIZATION_NONE,
+    autocorrect:false
 });
 win.add(email);
 
@@ -48,8 +50,17 @@ loginButton.addEventListener("click", function(e){
 		postData += "&user[password]=" + password.value;
 		
 		httpClient.onload = function(e) {
-			Ti.API.info("login ok: " + this.responseText);
+			Ti.API.info("login ok - Response from Server: " + this.responseText);
+			var response = JSON.parse(this.responseText);
+			email.blur();
+			password.blur();
 			
+			//fire event for app.js
+			Ti.App.fireEvent('loggedIn', {  
+            	email:email.value,  
+            	password:password.value,
+        	}); 
+			win.close();
 		}
 		httpClient.onerror = function(e) {
 			Ti.API.error("login fehlgeschlagen");
