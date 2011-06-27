@@ -54,6 +54,7 @@ Ti.App.addEventListener('loggedIn', function(event) {
 	mainTab.title = "Main";
 	
 	tabGroup.addTab(mainTab);
+	
 	tabGroup.removeTab(loginTab);
 	tabGroup.removeTab(registerTab);
 });
