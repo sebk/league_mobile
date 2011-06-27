@@ -1,4 +1,5 @@
 var win = Ti.UI.currentWindow;
+win.setBackgroundColor("#fff");
 
 var email = Ti.UI.createTextField({
 	color:"#336699",
@@ -7,10 +8,10 @@ var email = Ti.UI.createTextField({
 	width:300,
 	height:40,
 	hintText:"E-Mail",
-	keyboardType:Ti.UI.KEYBOARETURNKEY_DEFAULT,
+	keyboardType:Ti.UI.KEYBOARD_EMAIL,
 	returnKeyType:Ti.UI.RETURNKEY_DEFAULT,
 	borderStyle:Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
-	autocapitalization:Ti.UI.AUTOCAPITALIZATION_NONE,
+	autocapitalization:Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
     autocorrect:false
 });
 win.add(email);
@@ -23,7 +24,7 @@ var password = Ti.UI.createTextField({
 	height:40,
 	hintText:"Passwort",
 	passwordMask:true,
-	keyboardType:Ti.UI.KEYBOARDTYPE_DEFAULT,
+	keyboardType:Ti.UI.KEYBOARD_EMAIL,
 	returnKeyType:Ti.UI.RETURNKEY_DEFAULT,
 	borderStyle:Ti.UI.INPUT_BORDERSTYLE_ROUNDED
 });

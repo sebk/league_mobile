@@ -8,7 +8,8 @@ var scrollView = Ti.UI.createScrollView({
 	contentHeight:"auto",
 	top:0,
 	showVerticalScrollIndicator:true,
-	showHorizontalScrollIndicator:false
+	showHorizontalScrollIndicator:false,
+	backgroundColor:"#fff"
 });
 win.add(scrollView);
 
@@ -32,10 +33,10 @@ var email = Titanium.UI.createTextField({
     width:300,  
     height:40,  
     hintText:'E-mail',  
-    keyboardType:Titanium.UI.KEYBOARD_DEFAULT,  
+    keyboardType:Titanium.UI.KEYBOARD_EMAIL,  
     returnKeyType:Titanium.UI.RETURNKEY_DEFAULT,  
     borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED,
-    autocapitalization:Ti.UI.AUTOCAPITALIZATION_NONE,
+    autocapitalization:Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
     autocorrect:false
 });  
 scrollView.add(email); 
