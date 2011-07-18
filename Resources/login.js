@@ -49,6 +49,7 @@ loginButton.addEventListener("click", function(e){
 		
 		var postData = "user[email]=" + email.value;
 		postData += "&user[password]=" + password.value;
+		Ti.API.info("postdata: " + postData);
 		
 		httpClient.onload = function(e) {
 			Ti.API.info("login ok - Response from Server: " + this.responseText);
@@ -64,7 +65,7 @@ loginButton.addEventListener("click", function(e){
 			win.close();
 		}
 		httpClient.onerror = function(e) {
-			Ti.API.error("login fehlgeschlagen");
+			Ti.API.error("login fehlgeschlagen: " + this.responseText);
 		}
 		
 		httpClient.send(postData);		
@@ -75,7 +76,7 @@ loginButton.addEventListener("click", function(e){
 });
 
 
-//listen event: Eintragen der ZUgangsdaten nach dem erfolgreichen Registrieren
+//listen event: Eintragen der Zugangsdaten nach dem erfolgreichen Registrieren
 Ti.App.addEventListener("registerSuccess", function(event) {
 	Ti.API.info(event.email);
 	Ti.API.info(event.password);
