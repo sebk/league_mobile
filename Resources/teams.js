@@ -2,10 +2,79 @@ var win = Ti.UI.currentWindow;
 
 var defaultColor = "#035385";
 
+
+//-------------------
+//  REMOTE FUNCTION
+//-------------------
+function loadData() {
+	var rowData = []; //array for tableview data
+	
+	var httpClient = Ti.Network.createHTTPClient();
+
+	httpClient.onload = function(e) {
+		var response = JSON.parse(this.responseText);	
+		//var response = eval(this.responseText);
+		
+		
+		for (var i = 0; i < response.length; i++) {
+    		var name  = response[i].team.name; // The tweet message
+    		Ti.API.info("NAME: " + name);
+		
+		var row = Titanium.UI.createTableViewRow({height:'auto'});
+		var post_view = Titanium.UI.createView({ height:'auto', layout:'vertical', top:5, right:5, bottom:5, left:5 });
+		
+		var label = Titanium.UI.createLabel({
+    		text:name,
+    		left:5,
+    		width:320,
+    		top:0,
+    		bottom:0,
+    		height:40,
+    		textAlign:'left',
+    		color:'#444444',
+    		font:{
+        		fontFamily:'Trebuchet MS',fontSize:18,fontWeight:'bold'
+    		}
+		});
+
+		post_view.add(label);
+		
+		row.add(post_view);
+
+		// Give each row a class name
+		row.className = "item" + i;
+
+		// Add row to the rowData array
+		rowData[i] = row;
+		
+		}//for
+		
+		// Create the table view and set its data source to "rowData" array
+		var tableView = Titanium.UI.createTableView( { data : rowData } );
+
+		//Add the table view to the window
+		win.add(tableView);
+
+
+		//for(var i=0, ilen=response.length; i<ilen; i++){
+  			//var thisObject = "title: " + response[i]["team"]["name"] + ", color: defaultColor";
+		//}	
+		//table.setData(responseData, {animationStyle:Titanium.UI.iPhone.RowAnimationStyle.DOWN});
+	};
+	httpClient.onerror = function(e) {
+	};
+	
+	httpClient.open('GET', 'http://localhost:3000/teams.json');
+	httpClient.send();
+}
+
+
+loadData();
+
 //-------------------
 //	TABLE
 //-------------------
-
+/*
 var headerLabel = Ti.UI.createLabel({
 	backgroundColor:'#035385',
 	color:"white",
@@ -18,43 +87,11 @@ var headerLabel = Ti.UI.createLabel({
 
 var table = Ti.UI.createTableView({
 	backgroundColor:"white",
-	data: weatherData,
 	headerView:headerLabel,
 	top:10,
 	left:10,
 	width:300
 });
 
-
-var httpClient = Ti.Network.createHTTPClient();
-var tableData;
-
-var weatherData = [];
-
-httpClient.onload = function(e) {
-	var response = JSON.parse(this.responseText);
-	
-	weatherData = [
-  { title:"Mountain View (North America) - Cloudy", color:defaultColor},
-  { title:"Washington, DC (North America) - Mostly Cloudy", color:defaultColor },
-  { title:"Brasilia (South America) - Thunderstorm", color:defaultColor },
-  { title:"Buenos Aires (South America) - Clear", color:defaultColor },
-  { title:"Sucre (South America) - Mostly Cloudy", color:defaultColor },
-  { title:"London (Europe) - Overcast", color:defaultColor },
-  { title:"Moscow (Europe) - Partly Cloudy", color:defaultColor },
-  { title:"Prague (Europe) - Clear", color:defaultColor },
-  { title:"St Petersburg (Europe) - Snow", color:defaultColor },
-	];
-	
-	//better: insertRow (http://developer.appcelerator.com/apidoc/mobile/latest/Titanium.UI.TableView-object.html)
-	table.setData(weatherData, {animationStyle:Titanium.UI.iPhone.RowAnimationStyle.DOWN});
-};
-httpClient.onerror = function(e) {
-};
-httpClient.open('GET', 'http://localhost:3000/teams.json');
-httpClient.send();
-
-
 win.add(table);
-
-
+*/
