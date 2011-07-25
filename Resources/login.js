@@ -62,7 +62,7 @@ loginButton.addEventListener("click", function(e){
             	email:email.value,  
             	password:password.value,
         	}); 
-			win.close();
+			win.close(); //???: breaks on android?
 		}
 		httpClient.onerror = function(e) {
 			Ti.API.error("login fehlgeschlagen: " + this.responseText);

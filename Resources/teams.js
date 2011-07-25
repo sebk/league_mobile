@@ -59,9 +59,10 @@ function loadData() {
 	httpClient.onerror = function(e) {
 	};
 	
+ 
 	httpClient.open('GET', 'http://192.168.178.21:3000/teams.json');
 	httpClient.send();
 }
 
 
-//loadData();
+loadData();

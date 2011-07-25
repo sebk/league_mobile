@@ -19,7 +19,6 @@ var loginTab = Titanium.UI.createTab({
     window:loginWin
 });
 
-
 var registerWin = Titanium.UI.createWindow({  
     title:'Registrieren',
     backgroundColor:'#fff',
@@ -42,7 +41,24 @@ tabGroup.open();
 //login event handler
 Ti.App.addEventListener('loggedIn', function(event) {
 	Ti.API.info("app.js: receive event loggedIn");
+	
+	//store credentials in global properties	
+	Titanium.App.Properties.setString("email", event.email);
+	Titanium.App.Properties.setString("password", event.password);
 
+
+/*
+//app freezes, don't know why...still confused
+	var mainWin = Ti.UI.createWindow({
+		url: 'main.js'
+	});
+	mainWin.tabBarHidden = true;
+	mainWin.open();
+*/
+
+
+/*
+//works on iPhone, but not on Android (Android: only one tabGroup per Application - fu)
 	var mainWin = Ti.UI.createWindow();
 	var mainTab = Ti.UI.createTab();
 
@@ -50,9 +66,10 @@ Ti.App.addEventListener('loggedIn', function(event) {
 	mainWin.url = "main.js";
 	
 	mainTab.window = mainWin;
-	
+		
 	tabGroup.addTab(mainTab);
 	
 	tabGroup.removeTab(loginTab);
 	tabGroup.removeTab(registerTab);
+	*/
 });
