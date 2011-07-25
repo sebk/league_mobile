@@ -45,7 +45,7 @@ var httpClient = Ti.Network.createHTTPClient();
 
 loginButton.addEventListener("click", function(e){
 	if (email.value != "" && password.value != "") {
-		httpClient.open("POST", "http://localhost:3000/users/sign_in.json");
+		httpClient.open("POST", "http://192.168.178.21:3000/users/sign_in.json");
 		
 		var postData = "user[email]=" + email.value;
 		postData += "&user[password]=" + password.value;
@@ -56,16 +56,6 @@ loginButton.addEventListener("click", function(e){
 			var response = JSON.parse(this.responseText);
 			email.blur();
 			password.blur();
-			
-			//save login-data in property-list
-			Titanium.App.Properties.setString(email.value, "login");
-			Titanium.App.Properties.setString(password.value,"password");
-			var props = Titanium.App.Properties.listProperties();
-				for (var c=0;c<props.length;c++)
-				{
-    				var value = Titanium.App.Properties.getString(props[c]);
-    				Titanium.API.info(props[c]+" = "+value);
-				}
 			
 			//fire event for app.js
 			Ti.App.fireEvent('loggedIn', {  

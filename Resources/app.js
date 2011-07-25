@@ -6,9 +6,6 @@ Titanium.UI.setBackgroundColor('#fff');
 // create tab group
 var tabGroup = Titanium.UI.createTabGroup();
 
-var mainWin = Ti.UI.createWindow();
-var mainTab = Ti.UI.createTab();
-
 //
 // create base UI tab and root window
 //
@@ -45,13 +42,14 @@ tabGroup.open();
 //login event handler
 Ti.App.addEventListener('loggedIn', function(event) {
 	Ti.API.info("app.js: receive event loggedIn");
+
+	var mainWin = Ti.UI.createWindow();
+	var mainTab = Ti.UI.createTab();
+
 	mainWin.tabBarHidden = true;
-	mainWin.title = "Hallo";
 	mainWin.url = "main.js";
-	mainWin.email = event.email;
 	
 	mainTab.window = mainWin;
-	mainTab.title = "Main";
 	
 	tabGroup.addTab(mainTab);
 	
