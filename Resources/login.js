@@ -1,11 +1,11 @@
 var win = Ti.UI.currentWindow;
-win.setBackgroundColor("#fff");
+//win.setBackgroundColor("#fff");
 
 var email = Ti.UI.createTextField({
 	color:"#336699",
-	top:10,
+	top:25,
 	left:10,
-	width:300,
+	width:280,
 	height:40,
 	hintText:"E-Mail",
 	keyboardType:Ti.UI.KEYBOARD_EMAIL,
@@ -18,9 +18,9 @@ win.add(email);
 
 var password = Ti.UI.createTextField({
 	color:"#336699",
-	top:60,
+	top:75,
 	left:10,
-	width:300,
+	width:280,
 	height:40,
 	hintText:"Passwort",
 	passwordMask:true,
@@ -32,14 +32,29 @@ win.add(password);
 
 var loginButton = Ti.UI.createButton({
 	title:"Login",
-	top:110,
-	width:90,
+	top:150,
+	width:100,
 	height:35,
+	left:30,
 	borderRadius:1,
 	font:{fontFamily:"Arial", fontWeight:"bold", fontSize:14}
 });
 win.add(loginButton);
 
+var cancelButton = Ti.UI.createButton({
+	title:'Abbrechen',
+	top:150,
+	width:100,
+	height:35,
+	left:170,
+	borderRadius:1,
+	font:{fontFamily:"Arial", fontWeight:"bold", fontSize:14}
+});
+win.add(cancelButton);
+
+cancelButton.addEventListener('click', function(e) {
+	win.close();
+});
 
 var httpClient = Ti.Network.createHTTPClient();
 
