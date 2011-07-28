@@ -13,7 +13,7 @@ function loadData() {
 	var httpClient = Ti.Network.createHTTPClient();
 
 	httpClient.onload = function(e) {
-		var response = JSON.parse(this.responseText);			
+		var response = JSON.parse(this.responseText);
 		
 		for (var i = 0; i < response.length; i++) {
     		var name  = response[i].team.name; // The tweet message
@@ -23,7 +23,9 @@ function loadData() {
 				height:'auto',
 				hasChild:true
 			});
-			var post_view = Titanium.UI.createView({ height:'auto', layout:'vertical', top:5, right:5, bottom:5, left:5 });
+			
+			//View for TableRow
+			var row_view = Titanium.UI.createView({ height:'auto', layout:'vertical', top:5, right:5, bottom:5, left:5 });
 		
 			var label = Titanium.UI.createLabel({
     			text:name,
@@ -39,8 +41,8 @@ function loadData() {
     			}
 			});
 
-			post_view.add(label);
-			row.add(post_view);
+			row_view.add(label);
+			row.add(row_view);
 
 			// Give each row a class name
 			row.className = "item" + i;

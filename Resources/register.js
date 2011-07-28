@@ -72,13 +72,28 @@ scrollView.add(password2);
 var registerButton = Ti.UI.createButton({
 	title:"Abschicken",
 	top:260,
-	width:130,
+	width:100,
 	height:35,
+	left:30,
 	borderRadius:1,
 	font:{fontFamily:"Arial", fontWeight:"bold", fontSize:14}
 });
 scrollView.add(registerButton);
 
+var cancelButton = Ti.UI.createButton({
+	title:'Abbrechen',
+	top:260,
+	width:100,
+	height:35,
+	left:170,
+	borderRadius:1,
+	font:{fontFamily:"Arial", fontWeight:"bold", fontSize:14}
+});
+win.add(cancelButton);
+
+cancelButton.addEventListener('click', function(e) {
+	win.close();
+});
 
 /*
  * Validation logic
@@ -124,12 +139,7 @@ function sendRequest() {
 		registerButton.enabled = true;
 		registerButton.opacity = 1;
 		
-		//Fehlerbehandlung
-		if (this.status == "422") {
-			//Ti.API.error(response.email);
-			alert(response);
-		}
-		else {
+		if(this.status == "200") {
 			var alertDialog = Ti.UI.createAlertDialog({
 				title:"Registreirung",
 				message:"Danke fuer die Registrierung",
@@ -137,13 +147,17 @@ function sendRequest() {
 			});
 			alertDialog.show();
 			alertDialog.addEventListener("click", function(e){
-				//fire event, um die Daten in die Loginfelder einzutragen
+				//fire event
 				Ti.App.fireEvent("registerSuccess", {
 					email:email.value,
 					password:password1.value
 				});
-				win.tabGroup.setActiveTab(0);
+				//win.tabGroup.setActiveTab(0);
+				win.close();
 			});
+		}
+		else {
+			alert(response);
 		}
 	}
 	request.open("POST", "http://localhost:3000/users.json");
@@ -173,6 +187,7 @@ registerButton.addEventListener("click", function(e){
 	else {
 		registerButton.enabled = false;
 		registerButton.opacity = 0.3;
+		Ti.API.info("Vor dem Absenden des Requests");
 		sendRequest();
 	}
 });

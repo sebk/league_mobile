@@ -1,5 +1,5 @@
 var win = Ti.UI.currentWindow;
-//win.setBackgroundColor("#fff");
+win.setBackgroundColor("#fff");
 
 var email = Ti.UI.createTextField({
 	color:"#336699",
@@ -77,7 +77,7 @@ loginButton.addEventListener("click", function(e){
             	email:email.value,  
             	password:password.value,
         	}); 
-			win.close(); //???: breaks on android?
+			win.close(); 
 		}
 		httpClient.onerror = function(e) {
 			Ti.API.error("login fehlgeschlagen: " + this.responseText);
