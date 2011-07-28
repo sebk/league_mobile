@@ -22,4 +22,4 @@ tabGroup.addTab(teamsTab);
 tabGroup.addTab(laddersTab);  
 
 // open tab group
-tabGroup.open();
+//tabGroup.open();
