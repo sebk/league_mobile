@@ -3,7 +3,7 @@ Titanium.UI.setBackgroundColor('#fff');
 Ti.include('main.js'); //include tabGroup
 
 
-if (Ti.App.Properties.getString("email")=="" && Ti.App.Properties.getString("password")=="" ) {
+if (Ti.App.Properties.getString("email")==null && Ti.App.Properties.getString("password")==null ) {
 	//Window mit Login/Registrieren
 	var win = Ti.UI.createWindow({
 		url:'startscreen.js'
