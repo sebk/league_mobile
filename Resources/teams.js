@@ -13,22 +13,23 @@ function loadData() {
 	var httpClient = Ti.Network.createHTTPClient();
 
 	httpClient.onload = function(e) {
-		var response = JSON.parse(this.responseText);
+		var response = JSON.parse(this.responseText); //all teams
 		
 		for (var i = 0; i < response.length; i++) {
-    		var name  = response[i].team.name; // The tweet message
-    		Ti.API.info("NAME: " + name);
+			var team = response[i].team;
 		
 			var row = Titanium.UI.createTableViewRow({
 				height:'auto',
-				hasChild:true
+				hasChild:true, //cell indicator
+				
+				//values des teams
+				team: team
 			});
 			
 			//View for TableRow
 			var row_view = Titanium.UI.createView({ height:'auto', layout:'vertical', top:5, right:5, bottom:5, left:5 });
-		
 			var label = Titanium.UI.createLabel({
-    			text:name,
+    			text:team.name,
     			left:5,
     			width:320,
     			top:0,
@@ -54,6 +55,8 @@ function loadData() {
 		
 		// Create the table view and set its data source to "rowData" array
 		var tableView = Titanium.UI.createTableView( { data : rowData } );
+		
+		tableView.addEventListener('click', selectRow);
 
 		//Add the table view to the window
 		win.add(tableView);
@@ -63,12 +66,42 @@ function loadData() {
 	
  
 	httpClient.open('GET', Ti.App.Properties.getString("server")+'/teams.json');
-	
 	httpClient.setRequestHeader(
 		'Authorization',
 		'Basic ' + Ti.Utils.base64encode(Ti.App.Properties.getString("email")+':'+Ti.App.Properties.getString("password"))
 	);
+	httpClient.send();
+}
+
+//---------------------------
+//  TABLE CELL CLICKED EVENT
+//---------------------------
+function selectRow(e) {
+	var index = e.index;
+	var team = e.rowData.team;	
 	
+	var httpClient = Ti.Network.createHTTPClient();
+	httpClient.onload = function(e) {
+		var team = JSON.parse(this.responseText).team;
+		
+		//init teamdetail window
+		var detailsWin = Ti.UI.createWindow({
+			team: team,
+			url:'teamdetails.js'
+		});
+		Ti.API.info("SHOULD OPEN WINDOW");
+		//TODO: nur fuer iPhone setzen
+		win._navGroup.open(detailsWin);
+	};
+	httpClient.onerror = function(e) {
+		Ti.API.error("Abrufen des Teams nicht moeglich");
+	}
+	
+	httpClient.open('GET', Ti.App.Properties.getString("server")+"/teams/"+ team.id +".json");
+	httpClient.setRequestHeader(
+		'Authorization',
+		'Basic ' + Ti.Utils.base64encode(Ti.App.Properties.getString("email")+':'+Ti.App.Properties.getString("password"))
+	);
 	httpClient.send();
 }
 
