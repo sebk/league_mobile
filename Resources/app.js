@@ -1,6 +1,9 @@
 Titanium.UI.setBackgroundColor('#fff');
 
-Ti.include('main.js'); //include tabGroup
+//Server URL setzen
+Ti.App.Properties.setString("server", "http://192.168.100.156:3000");
+
+Ti.include('tabgroup.js'); //include tabGroup
 
 
 if (Ti.App.Properties.getString("email")==null && Ti.App.Properties.getString("password")==null ) {
@@ -26,4 +29,5 @@ Ti.App.addEventListener('loggedIn', function(event) {
 	Titanium.App.Properties.setString("email", event.email);
 	Titanium.App.Properties.setString("password", event.password);
 	
+	tabGroup.open();
 });

@@ -60,7 +60,8 @@ var httpClient = Ti.Network.createHTTPClient();
 
 loginButton.addEventListener("click", function(e){
 	if (email.value != "" && password.value != "") {
-		httpClient.open("POST", "http://192.168.178.21:3000/users/sign_in.json");
+		httpClient.open("POST", Ti.App.Properties.getString("server")+"/users/sign_in.json");
+		Ti.API.info("URL: " + httpClient.location);
 		
 		var postData = "user[email]=" + email.value;
 		postData += "&user[password]=" + password.value;

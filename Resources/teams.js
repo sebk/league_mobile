@@ -62,7 +62,13 @@ function loadData() {
 	};
 	
  
-	httpClient.open('GET', 'http://192.168.178.21:3000/teams.json');
+	httpClient.open('GET', Ti.App.Properties.getString("server")+'/teams.json');
+	
+	httpClient.setRequestHeader(
+		'Authorization',
+		'Basic ' + Ti.Utils.base64encode(Ti.App.Properties.getString("email")+':'+Ti.App.Properties.getString("password"))
+	);
+	
 	httpClient.send();
 }
 

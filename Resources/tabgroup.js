@@ -20,6 +20,3 @@ var laddersTab = Titanium.UI.createTab({
 
 tabGroup.addTab(teamsTab);  
 tabGroup.addTab(laddersTab);  
-
-// open tab group
-//tabGroup.open();
