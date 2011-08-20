@@ -2,21 +2,16 @@ var win = Ti.UI.currentWindow;
 win.backgroundColor = '#fff';
 var team = win.team;
 
-	var data = [
-		{title:"Test Row 1", color:'black', fontWeight:'bold', hasChild:true},
-		{title:"Test Row 2", color:'black', fontWeight:'bold', hasChild:true},
-	];
+var data = [
+	{title:"Test Row 1", color:'black', fontWeight:'bold', hasChild:true},
+	{title:"Test Row 2", color:'black', fontWeight:'bold', hasChild:true},
+];
+
+function loadData() {
+	
+}
 
 function createTable() {
-	var isAndroid = false;
-	if (Titanium.Platform.name == 'android') {
-		isAndroid = true;
-	}
-
-
-
-	var tableView;
-	
 	var section1 = Ti.UI.createTableViewSection({
 		headerTitle:"My section"
 	});
@@ -30,26 +25,17 @@ function createTable() {
 	  });
 	  section1.add(row);
 	};
-
 	
-	if(!isAndroid) {
-		tableView = Ti.UI.createTableView( {
-			data: [section1],
-			style:Titanium.UI.iPhone.TableViewStyle.GROUPED,
-			//backgroundColor:'transparent',
-			//rowBackgroundColor:'white'
-		});
-	}
-
-	if(isAndroid) {
-		tableView = Ti.UI.createTableView( {
-			data: [section1],
-			//backgroundColor:'transparent',
-			//rowBackgroundColor:'white',
-		});
-	}
+	var tableView = Ti.UI.createTableView({
+		data: [section1]
+	});
+	
+	if (Titanium.Platform.name != 'android') {
+		tableView.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
+	};
 	
 	win.add(tableView);
 }
 
+loadData();
 createTable();
