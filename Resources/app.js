@@ -1,7 +1,7 @@
 Titanium.UI.setBackgroundColor('#fff');
 
 //Server URL setzen
-Ti.App.Properties.setString("server", "http://192.168.100.156:3000");
+Ti.App.Properties.setString("server", "http://192.168.1.104:3000");
 
 Ti.include('tabgroup.js'); //include tabGroup
 

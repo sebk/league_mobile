@@ -8,6 +8,8 @@ Ti.API.info("TEAMS.js opened");
 //  REMOTE FUNCTION
 //-------------------
 function loadData() {
+	Ti.API.info("loadData aufgerufen");
+	
 	var rowData = []; //array for tableview data
 	
 	var httpClient = Ti.Network.createHTTPClient();
@@ -21,9 +23,7 @@ function loadData() {
 			var row = Titanium.UI.createTableViewRow({
 				height:'auto',
 				hasChild:true, //cell indicator
-				
-				//values des teams
-				team: team
+				team: team //custom value
 			});
 			
 			//View for TableRow
@@ -89,9 +89,13 @@ function selectRow(e) {
 			team: team,
 			url:'teamdetails.js'
 		});
-		Ti.API.info("SHOULD OPEN WINDOW");
-		//TODO: nur fuer iPhone setzen
-		win._navGroup.open(detailsWin);
+		if (Titanium.Platform.name == 'android') {
+			detailsWin.open({modal: true});
+		}
+		else {
+			win._navGroup.open(detailsWin);
+		}
+		
 	};
 	httpClient.onerror = function(e) {
 		Ti.API.error("Abrufen des Teams nicht moeglich");

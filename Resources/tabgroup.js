@@ -10,24 +10,28 @@ var teamsWin = Titanium.UI.createWindow({
     title:"Teams"
 });
 
-//TODO: navGroup nur fuer iPhone setzen
 if (Ti.Platform.osname == "iphone") {
+	var nav = Ti.UI.iPhone.createNavigationGroup({
+		window:teamsWin
+	});
+	baseWindow.add(nav);
 	
+	//set navGroup so we can push new windows into the group
+	teamsWin._navGroup = nav;
 };
-var nav = Ti.UI.iPhone.createNavigationGroup({
-	window:teamsWin
-});
-baseWindow.add(nav);
-
-//set navGroup so we can push new windows into the group
-teamsWin._navGroup = nav;
 
 
 var teamsTab = Titanium.UI.createTab({  
     title:'Teams',
     //window:teamsWin
-    window:baseWindow
+    //window:baseWindow
 });
+if (Ti.Platform.osname == "iphone") {
+	teamsTab.window = baseWindow;
+}
+else {
+	teamsTab.window = teamsWin;
+}
 
 
 var laddersWin = Titanium.UI.createWindow({  
