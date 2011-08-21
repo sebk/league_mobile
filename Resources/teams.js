@@ -79,34 +79,20 @@ function loadData() {
 function selectRow(e) {
 	var index = e.index;
 	var team = e.rowData.team;	
-	
-	var httpClient = Ti.Network.createHTTPClient();
-	httpClient.onload = function(e) {
-		var team = JSON.parse(this.responseText).team;
+
+	//init teamdetail window
+	var detailsWin = Ti.UI.createWindow({
+		url: 'teamdetails.js',
+		team: team,
+		title: team.name
+	});
 		
-		//init teamdetail window
-		var detailsWin = Ti.UI.createWindow({
-			team: team,
-			url:'teamdetails.js'
-		});
-		if (Titanium.Platform.name == 'android') {
-			detailsWin.open({modal: true});
-		}
-		else {
-			win._navGroup.open(detailsWin);
-		}
-		
-	};
-	httpClient.onerror = function(e) {
-		Ti.API.error("Abrufen des Teams nicht moeglich");
+	if (Titanium.Platform.name == 'android') {
+		detailsWin.open({modal: true});
 	}
-	
-	httpClient.open('GET', Ti.App.Properties.getString("server")+"/teams/"+ team.id +".json");
-	httpClient.setRequestHeader(
-		'Authorization',
-		'Basic ' + Ti.Utils.base64encode(Ti.App.Properties.getString("email")+':'+Ti.App.Properties.getString("password"))
-	);
-	httpClient.send();
+	else {
+		win._navGroup.open(detailsWin);
+	}
 }
 
 

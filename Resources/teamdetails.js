@@ -1,41 +1,75 @@
 var win = Ti.UI.currentWindow;
 win.backgroundColor = '#fff';
-var team = win.team;
+var team = win.team; 
 
-var data = [
-	{title:"Test Row 1", color:'black', fontWeight:'bold', hasChild:true},
-	{title:"Test Row 2", color:'black', fontWeight:'bold', hasChild:true},
-];
 
-function loadData() {
-	
+var users = [];
+function loadUsers() {
+	for (var i=0; i < team.users.length; i++) {
+	  var user_name = team.users[i].name;
+	  users[i] = {name:user_name, hasChild:false};
+	};
+}
+
+var ladders = [];
+function loadLadders() {
+	for (var i=0; i < team.ladders.length; i++) {
+	  var ladder_name = team.ladders[i].name;
+	  ladders[i] = {name:ladder_name, hasChild:false};
+	};
 }
 
 function createTable() {
-	var section1 = Ti.UI.createTableViewSection({
-		headerTitle:"My section"
+	loadUsers();
+	var section_users = Ti.UI.createTableViewSection({
+		headerTitle:"Mitglieder"
 	});
-	for (var i=0; i < data.length; i++) {
+	
+	loadLadders();
+	if (ladders.length > 0) {
+		var section_ladders = Ti.UI.createTableViewSection({
+			headerTitle:"Ligen"
+		});
+	};
+
+	
+	for (var i=0; i < users.length; i++) {
 	  var row = Ti.UI.createTableViewRow({
-	  	title: data[i].title,
-	  	fontWeight: data[i].fontWeight,
-	  	hasChild: data[i].hasChild,
-	  	color:data[i].color,
+	  	title: users[i].name,
+	  	fontWeight: 'bold',
+	  	hasChild: users[i].hasChild,
+	  	color:'black',
 	  	height: 44
 	  });
-	  section1.add(row);
+	  section_users.add(row);
 	};
 	
-	var tableView = Ti.UI.createTableView({
-		data: [section1]
-	});
-	
-	if (Titanium.Platform.name != 'android') {
-		tableView.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
+	for (var i=0; i < ladders.length; i++) {
+	  var row = Ti.UI.createTableViewRow({
+	  	title: ladders[i].name,
+	  	fontWeight: 'bold',
+	  	hasChild: ladders[i].hasChild,
+	  	color:'black',
+	  	height: 44
+	  });
+	  section_ladders.add(row);
 	};
 	
+	var tableView;
+	if (Titanium.Platform.name == 'android') {
+		tableView = Ti.UI.createTableView({
+			data: [section_users, section_ladders]
+		});
+	}
+	else {
+		tableView = Ti.UI.createTableView({
+			data: [section_users, section_ladders],
+			style: Ti.UI.iPhone.TableViewStyle.GROUPED
+		});
+	}
 	win.add(tableView);
 }
 
-loadData();
+//loadUsers();
+//loadLadders();
 createTable();
