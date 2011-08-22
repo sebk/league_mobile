@@ -1,8 +1,31 @@
 var win = Ti.UI.currentWindow;
-
 var defaultColor = "#035385";
 
-Ti.API.info("TEAMS.js opened");
+
+if (Titanium.Platform.name == 'android') {
+	var activity = Ti.Android.currentActivity;
+	activity.onCreateOptionsMenu = function(e) {
+		var menu = e.menu;
+		var menuItem = menu.add({title: "Neues Team"});
+		menuItem.setIcon("add.png");
+		menuItem.addEventListener("click", addTeam);
+	};
+}
+else {
+	var rightButton = Ti.UI.createButton({
+		systemButton: Ti.UI.iPhone.SystemButton.ADD
+	});
+	rightButton.addEventListener("click", addTeam)
+	win.setRightNavButton(rightButton);
+}
+
+function addTeam() {
+	var winBG = Ti.UI.createWindow({
+		url:'inputwindow.js'
+	});
+	winBG.open();
+}
+
 
 //-------------------
 //  REMOTE FUNCTION

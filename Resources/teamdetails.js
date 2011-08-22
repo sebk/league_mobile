@@ -31,7 +31,6 @@ function createTable() {
 			headerTitle:"Ligen"
 		});
 	};
-
 	
 	for (var i=0; i < users.length; i++) {
 	  var row = Ti.UI.createTableViewRow({
@@ -58,13 +57,15 @@ function createTable() {
 	var tableView;
 	if (Titanium.Platform.name == 'android') {
 		tableView = Ti.UI.createTableView({
-			data: [section_users, section_ladders]
+			data: [section_users, section_ladders],
+			allowsSelection:false
 		});
 	}
 	else {
 		tableView = Ti.UI.createTableView({
 			data: [section_users, section_ladders],
-			style: Ti.UI.iPhone.TableViewStyle.GROUPED
+			style: Ti.UI.iPhone.TableViewStyle.GROUPED,
+			allowsSelection:false
 		});
 	}
 	win.add(tableView);
