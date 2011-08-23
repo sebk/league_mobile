@@ -1,13 +1,13 @@
 Titanium.UI.setBackgroundColor('#fff');
 
-//Server URL setzen
+//host URL
 Ti.App.Properties.setString("server", "http://192.168.100.156:3000");
 
 Ti.include('tabgroup.js'); //include tabGroup
 
 
 if (Ti.App.Properties.getString("email")==null && Ti.App.Properties.getString("password")==null ) {
-	//Window mit Login/Registrieren
+	//login/register window
 	var win = Ti.UI.createWindow({
 		url:'startscreen.js'
 	});

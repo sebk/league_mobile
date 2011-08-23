@@ -35,10 +35,10 @@
         </orientations>
     </iphone>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
-    	<tool-api-level>8</tool-api-level>
-   		<manifest android:installLocation="preferExternal">
-      		<uses-sdk android:minSdkVersion="7" />
-   		</manifest>
+        <tool-api-level>8</tool-api-level>
+        <manifest android:installLocation="preferExternal">
+            <uses-sdk android:minSdkVersion="7"/>
+        </manifest>
     </android>
     <modules/>
 </ti:app>

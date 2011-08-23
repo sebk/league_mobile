@@ -21,7 +21,8 @@ else {
 
 function addTeam() {
 	var winBG = Ti.UI.createWindow({
-		url:'inputwindow.js'
+		url:'inputwindow.js',
+		backgroundColor: 'transparent',
 	});
 	winBG.open();
 }

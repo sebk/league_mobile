@@ -2,7 +2,7 @@ var win = Ti.UI.currentWindow;
 
 win.title = 'Willkommen';
 
-//vorerst nur ein Platzhalter; ein schoenes Logo waere besser
+//a nice logo would be great
 var label = Ti.UI.createLabel({
 	text:'league mobile',
 	top:20,
@@ -36,7 +36,7 @@ win.add(loginButton);
 
 
 var registerButton = Ti.UI.createButton({
-	title:'Registrieren',
+	title:'Account anlegen',
 	top:280,
 	width:200,
 	height:35,
